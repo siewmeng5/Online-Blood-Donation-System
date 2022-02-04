@@ -16,6 +16,8 @@ public class OnlineBloodDonation {
      */
     public static void main(String[] args) {
         System.out.println("helo boon 222");
+        System.out.println("helo boon ");
+        
     }
 
     public OnlineBloodDonation() {
