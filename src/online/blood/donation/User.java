@@ -14,13 +14,15 @@ public class User {
     private String password;
     private String name;
     private long identityCard;
+    private long phoneNumber;
     private char bloodType;
 
-    public User(String username, String password, String name, long identityCard, char bloodType) {
+    public User(String username, String password, String name, long identityCard, long phoneNumber, char bloodType) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.identityCard = identityCard;
+        this.phoneNumber = phoneNumber;
         this.bloodType = bloodType;
     }
 
@@ -52,6 +54,14 @@ public class User {
         this.identityCard = identityCard;
     }
 
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    
     public char getBloodType() {
         return bloodType;
     }
