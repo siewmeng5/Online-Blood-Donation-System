@@ -21,6 +21,7 @@ public class OnlineBloodDonation {
             System.out.println("=============================");
             System.out.println("||  ONLINE BLOOD DONATION  ||");
             System.out.println("||     SAFELIFE SOCIETY    ||");
+            System.out.println("||     SAFELIFE SOCIETY    ||");
             System.out.println("=============================");
 
             System.out.println("1. Create account");
