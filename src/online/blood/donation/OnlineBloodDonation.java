@@ -38,11 +38,10 @@ public class OnlineBloodDonation {
                     break;
                 case 2:
                     //boolean proceed = loginUser();
-                    
-                    //if(proceed){
-                        //@Wan Jun @Boon, after user login successfully. You can call your functions here
-                    //}
 
+                    //if(proceed){
+                    //@Wan Jun @Boon, after user login successfully. You can call your functions here
+                    //}
                     break;
 
                 default:
@@ -63,7 +62,7 @@ public class OnlineBloodDonation {
 
     public static void clearConsole() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
-
 
 }
