@@ -34,7 +34,7 @@ public class OnlineBloodDonation {
                     System.out.println("Thank you for using this system!");
                     break;
                 case 1:
-                    //createAccount();
+                    createAccount();
                     break;
                 case 2:
                     //boolean proceed = loginUser();
@@ -49,6 +49,53 @@ public class OnlineBloodDonation {
                     systemPause();
             }
         }
+
+    }
+    
+    
+    private static void createAccount() {
+        clearConsole();
+        scan.nextLine();
+
+        String username;
+        String password;
+        String name;
+        long identityCard;
+        long phoneNumber;
+        char bloodType;
+
+        System.out.print("Enter new username\n>");
+        username = scan.nextLine();
+
+        for (int i = 0; i < userAccounts.size(); i++) {
+            if (userAccounts.get(i).getUsername().equals(username)) {
+                System.out.print("Sorry. Username taken. Please choose another username\n>");
+                username = scan.nextLine();
+                i = -1;
+            }
+        }
+
+        System.out.print("Enter new password\n>");
+        password = scan.nextLine();
+
+        System.out.print("Enter your fullname as per IC\n>");
+        name = scan.nextLine();
+
+        System.out.print("Enter your IC number (without '-')\n>");
+        identityCard = scan.nextLong();
+
+        System.out.print("Enter your phone number (without '-')\n>");
+        phoneNumber = scan.nextLong();
+
+        System.out.print("Enter your blood type (A/B/AB/O)\n>");
+        bloodType = scan.next().charAt(0);
+
+        User temp = new User(username, password, name, identityCard, phoneNumber, bloodType);
+        userAccounts.add(temp);
+
+        System.out.println("Account created successfully...");
+
+        systemPause();
 
     }
 
