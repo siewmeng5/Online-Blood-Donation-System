@@ -13,11 +13,11 @@ public class User {
     private String username;
     private String password;
     private String name;
-    private long identityCard;
-    private long phoneNumber;
-    private char bloodType;
+    private String identityCard;
+    private String phoneNumber;
+    private String bloodType;
 
-    public User(String username, String password, String name, long identityCard, long phoneNumber, char bloodType) {
+    public User(String username, String password, String name, String identityCard, String phoneNumber, String bloodType) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -46,27 +46,27 @@ public class User {
         this.name = name;
     }
 
-    public long getIdentityCard() {
+    public String getIdentityCard() {
         return identityCard;
     }
 
-    public void setIdentityCard(long identityCard) {
+    public void setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     
-    public char getBloodType() {
+    public String getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(char bloodType) {
+    public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
     
