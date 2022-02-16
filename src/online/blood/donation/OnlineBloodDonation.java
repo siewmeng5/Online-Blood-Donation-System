@@ -10,6 +10,8 @@ public class OnlineBloodDonation {
     static Scanner scan = new Scanner(System.in);
 
     static ArrayList<User> userAccounts = new ArrayList<User>();
+    
+    static User currentUser;
 
     public static void main(String[] args) {
 
@@ -37,11 +39,12 @@ public class OnlineBloodDonation {
                     createAccount();
                     break;
                 case 2:
-                    //boolean proceed = loginUser();
+                    boolean proceed = loginUser();
 
-                    //if(proceed){
-                    //@Wan Jun @Boon, after user login successfully. You can call your functions here
-                    //}
+                    if(proceed){
+                        
+                    //@Wan Jun and @Boon, after user login successfully. You can call your functions here
+                    }
                     break;
 
                 default:
@@ -51,7 +54,6 @@ public class OnlineBloodDonation {
         }
 
     }
-    
     
     private static void createAccount() {
         clearConsole();
@@ -99,6 +101,55 @@ public class OnlineBloodDonation {
 
     }
 
+    private static boolean loginUser() {
+        clearConsole();
+        scan.nextLine();
+
+        String username;
+        String password;
+
+        boolean proceed = false;
+
+        int foundIndex = -1;
+
+        System.out.print("Enter your username\n>");
+        username = scan.nextLine();
+
+        for (int i = 0; i < userAccounts.size(); i++) {
+            if (userAccounts.get(i).getUsername().equals(username)) {
+                proceed = true;
+                foundIndex = i;
+                break;
+            }
+            if (!(userAccounts.get(i).getUsername().equals(username)) && (i + 1) == userAccounts.size()) {
+                System.out.print("Username not found!");
+            }
+        }
+
+        if (proceed) {
+            System.out.print("Enter your password\n>");
+            password = scan.nextLine();
+
+            for (int i = 3; i > 0; i--) {
+                if (userAccounts.get(foundIndex).getPassword().equals(password)) {
+                    currentUser = userAccounts.get(foundIndex);
+                    System.out.println("Welcome back, " + currentUser.getName()+" !");
+                    systemPause();
+                    return true;
+                } else {
+                    System.out.print("Wrong password. Please try again (" + i + " times left)\n>");
+                    password = scan.nextLine();
+                }
+            }
+
+        }
+        
+        System.out.println("Login Failed...");
+        systemPause();
+        
+        return false;
+    }
+    
     private static void systemPause() {
         try {
             Thread.sleep(2000);
