@@ -10,10 +10,21 @@ public class OnlineBloodDonation {
     static Scanner scan = new Scanner(System.in);
 
     static ArrayList<User> userAccounts = new ArrayList<User>();
-    
+    static ArrayList<Donation_Centre> donationCentres = new ArrayList<Donation_Centre>();
+
     static User currentUser;
 
     public static void main(String[] args) {
+        Donation_Centre centre1 = new Donation_Centre("Tengku Ali Blood Donation Centre", "Selangor", "Klang", 33786543);
+        Donation_Centre centre2 = new Donation_Centre("Tengku Abu Blood Donation Centre", "Selangor", "Gombak", 33786243);
+        Donation_Centre centre3 = new Donation_Centre("Subang Blood Donation Centre", "Selangor", "Petaling", 33566543);
+        Donation_Centre centre4 = new Donation_Centre("1Malaysia Blood Donation Centre", "Selangor", "Petaling", 33786543);
+        Donation_Centre centre5 = new Donation_Centre("Sultan Mohd Blood Donation Centre", "Selangor", "Kuala Selangor", 33098543);
+        donationCentres.add(centre1);
+        donationCentres.add(centre2);
+        donationCentres.add(centre3);
+        donationCentres.add(centre4);
+        donationCentres.add(centre5);
 
         int userChoice = 1;
 
@@ -41,9 +52,24 @@ public class OnlineBloodDonation {
                 case 2:
                     boolean proceed = loginUser();
 
-                    if(proceed){
-                        
-                    //@Wan Jun and @Boon, after user login successfully. You can call your functions here
+                    if (proceed) {
+                        scan.nextLine();
+                        displayUserMenu();
+                        userChoice = scan.nextInt();
+                        switch (userChoice) {
+                            case 0:
+                                System.out.println("Thank you for using this system!");
+                                System.exit(0);
+                            case 1:
+                                //Boon
+                                registerAppointment();
+                                break;
+                            case 2:
+                                System.out.println("Logging out..");
+                                systemPause();
+                                break;
+                        }
+                        //@Wan Jun and @Boon, after user login successfully. You can call your functions here
                     }
                     break;
 
@@ -54,7 +80,20 @@ public class OnlineBloodDonation {
         }
 
     }
-    
+
+    private static void displayUserMenu() {
+        System.out.println("=============================");
+        System.out.println("||  ONLINE BLOOD DONATION  ||");
+        System.out.println("||     SAFELIFE SOCIETY    ||");
+        System.out.println("||     (USER MAIN MENU)    ||");
+        System.out.println("=============================");
+
+        System.out.println("1. Register Appointment");
+        System.out.println("2. Logout");
+        System.out.println("0. Exit system\n");
+        System.out.print("Enter choice\n>");
+    }
+
     private static void createAccount() {
         clearConsole();
         scan.nextLine();
@@ -133,7 +172,7 @@ public class OnlineBloodDonation {
             for (int i = 3; i > 0; i--) {
                 if (userAccounts.get(foundIndex).getPassword().equals(password)) {
                     currentUser = userAccounts.get(foundIndex);
-                    System.out.println("Welcome back, " + currentUser.getName()+" !");
+                    System.out.println("Welcome back, " + currentUser.getName() + " !");
                     systemPause();
                     return true;
                 } else {
@@ -143,13 +182,52 @@ public class OnlineBloodDonation {
             }
 
         }
-        
+
         System.out.println("Login Failed...");
         systemPause();
-        
+
         return false;
     }
-    
+
+    private static void registerAppointment() {
+        clearConsole();
+        scan.nextLine();
+
+        ArrayList<Donation_Centre> tempCentres = new ArrayList<Donation_Centre>();
+
+        String userState;
+        String userDistrict;
+        int choice;
+        Donation_Centre temp = new Donation_Centre();
+
+        System.out.print("Enter the state you living\n>");
+        userState = scan.nextLine();
+
+//        System.out.print("Enter the district you living\n>");
+//        userDistrict = scan.nextLine();
+        for (int i = 0; i < donationCentres.size(); i++) {
+            if (donationCentres.get(i).getState().equals(userState)) {
+                temp = donationCentres.get(i);
+                tempCentres.add(temp);
+            }
+        }
+
+        if (!tempCentres.isEmpty()) {
+            int index = 1;
+            for (int i = 0; i < tempCentres.size(); i++) {
+                System.out.print("\nNo. " + index + "\n");
+                System.out.println(tempCentres.get(i).toString());
+                index++;
+            }
+            System.out.print("\nEnter the index number of the centre to register for an appointment\n>");
+            choice = scan.nextInt();
+
+        } else {
+            System.out.println("No Blood Donation Centre is found at your area.");
+        }
+
+    }
+
     private static void systemPause() {
         try {
             Thread.sleep(2000);
