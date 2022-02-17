@@ -10,6 +10,7 @@ public class OnlineBloodDonation {
     static Scanner scan = new Scanner(System.in);
 
     static ArrayList<User> userAccounts = new ArrayList<User>();
+    static ArrayList<RegisteredDonor> registeredUsers = new ArrayList<RegisteredDonor>();
     static ArrayList<Donation_Centre> donationCentres = new ArrayList<Donation_Centre>();
 
     static User currentUser;
@@ -17,7 +18,7 @@ public class OnlineBloodDonation {
     public static void main(String[] args) {
 //        profile();
 //        System.out.print("x");
-        
+
         Donation_Centre centre1 = new Donation_Centre("Tengku Ali Blood Donation Centre", "Selangor", "Klang", 33786543);
         Donation_Centre centre2 = new Donation_Centre("Tengku Abu Blood Donation Centre", "Selangor", "Gombak", 33786243);
         Donation_Centre centre3 = new Donation_Centre("Subang Blood Donation Centre", "Selangor", "Petaling", 33566543);
@@ -56,47 +57,45 @@ public class OnlineBloodDonation {
                     boolean proceed = loginUser();
 
                     if (proceed) {
-                        while(userChoice2 > 0 && userChoice2 != 3)
-                        {
-                            scan.nextLine();
+                        while (userChoice2 > 0 && userChoice2 != 3) {
+                            clearConsole();
                             displayUserMenu();
 
                             userChoice2 = scan.nextInt();
                             scan.nextLine();
-                        
+
                             switch (userChoice2) {
-                            case 0:
-                                System.out.println("Thank you for using this system!");
-                                System.exit(0);
-                            case 1:
-                                //Boon
-                                registerAppointment();
-                                break;
-                            case 2:
-                                //Wan Jun
-                                profile();
-                                break;
-                            case 3:
-                                System.out.println("Logging out..");
-                                systemPause();
-                                break;
-                            case 4:
-                                //Wan Jun
-                                editProfile();
-                                break;
+                                case 0:
+                                    System.out.println("Thank you for using this system!");
+                                    System.exit(0);
+                                case 1:
+                                    //Boon
+                                    registerAppointment();
+                                    break;
+                                case 2:
+                                    //Wan Jun
+                                    profile();
+                                    break;
+                                case 3:
+                                    //Wan Jun
+                                    editProfile();
+                                    break;
+                                case 4:
+                                    System.out.println("Logging out..");
+                                    systemPause();
+                                    break;
                             }
                         }
-                        
+
                         //@Wan Jun and @Boon, after user login successfully. You can call your functions here
                     }
-                    
+
 //                    if (userChoice2 == 2){
 //                        displayUserMenu();
 //                        userChoice = 1;
 //                        userChoice = scan.nextInt();
 //                        scan.nextLine();
 //                    }
-                        
                     break;
 
                 default:
@@ -111,13 +110,13 @@ public class OnlineBloodDonation {
         System.out.println("=============================");
         System.out.println("||  ONLINE BLOOD DONATION  ||");
         System.out.println("||     SAFELIFE SOCIETY    ||");
-        System.out.println("||     (USER MAIN MENU)    ||");
+        System.out.println("||     (DONOR MAIN MENU)   ||");
         System.out.println("=============================");
 
         System.out.println("1. Register Appointment");
         System.out.println("2. View Profile");
-        System.out.println("3. Logout");
-        System.out.println("4. Editing Profile");
+        System.out.println("3. Editing Profile");
+        System.out.println("4. Logout");
         System.out.println("0. Exit system\n");
         System.out.print("Enter choice\n>");
     }
@@ -219,16 +218,15 @@ public class OnlineBloodDonation {
 
     private static void registerAppointment() {
         clearConsole();
-        scan.nextLine();
 
         ArrayList<Donation_Centre> tempCentres = new ArrayList<Donation_Centre>();
 
         String userState;
         String userDistrict;
-        int choice;
+        int indexNum;
         Donation_Centre temp = new Donation_Centre();
 
-        System.out.print("Enter the state you living\n>");
+        System.out.print("Enter the state you live in\n>");
         userState = scan.nextLine();
 
 //        System.out.print("Enter the district you living\n>");
@@ -239,7 +237,6 @@ public class OnlineBloodDonation {
                 tempCentres.add(temp);
             }
         }
-
         if (!tempCentres.isEmpty()) {
             int index = 1;
             for (int i = 0; i < tempCentres.size(); i++) {
@@ -247,49 +244,55 @@ public class OnlineBloodDonation {
                 System.out.println(tempCentres.get(i).toString());
                 index++;
             }
-            System.out.print("\nEnter the index number of the centre to register for an appointment\n>");
-            choice = scan.nextInt();
+            System.out.print("\nEnter the index number of the availabe centre to register for an appointment\n>");
+            indexNum = scan.nextInt();
+
+            RegisteredDonor newRegistered = new RegisteredDonor(currentUser, tempCentres.get(indexNum - 1));
+            registeredUsers.add(newRegistered);
+            System.out.print("\nRegistered Successfully\n>");
+            System.out.print(registeredUsers.toString());
+            systemPause();
 
         } else {
-            System.out.println("No Blood Donation Centre is found at your area.");
+            System.out.println("No Blood Donation Centre is found at the state you live in.");
         }
 
     }
-    
-    private static void profile(){
+
+    private static void profile() {
         System.out.println("Your Personal Information");
         System.out.println("=========================");
-        System.out.println("Name as NRIC: "+ currentUser.getName());
-        System.out.println("NRIC: "+ currentUser.getIdentityCard());
-        System.out.println("Phone Number: "+ currentUser.getPhoneNumber());
-        System.out.println("Blood Type: "+ currentUser.getBloodType());
+        System.out.println("Name as NRIC: " + currentUser.getName());
+        System.out.println("NRIC: " + currentUser.getIdentityCard());
+        System.out.println("Phone Number: " + currentUser.getPhoneNumber());
+        System.out.println("Blood Type: " + currentUser.getBloodType());
         System.out.println("\n");
         scan.nextLine();
     }
-    private static void editProfile(){
+
+    private static void editProfile() {
         clearConsole();
-        
+
         int selection = 0;
-        
+
         profile();
-        
+
         System.out.println("1. Name");
         System.out.println("2. NRIC");
         System.out.println("3. Phone Number");
         System.out.println("4. Blood Type");
         System.out.println("5. Exit");
-                
-        
+
         System.out.println("Enter you selection to edit > ");
         selection = scan.nextInt();
-        switch(selection){
+        switch (selection) {
             case 1:
                 String name;
                 scan.nextLine();
                 System.out.println("To Edit...");
-                System.out.println("Current Name : "+ currentUser.getName());
+                System.out.println("Current Name : " + currentUser.getName());
                 System.out.println("Enter new name as NRIC:");
-                name=scan.nextLine();
+                name = scan.nextLine();
                 currentUser.setName(name);
                 System.out.println("Name edited successfully!");
                 break;
@@ -297,9 +300,9 @@ public class OnlineBloodDonation {
                 String icNum;
                 scan.nextLine();
                 System.out.println("To Edit...");
-                System.out.println("Current NRIC : "+ currentUser.getIdentityCard());
+                System.out.println("Current NRIC : " + currentUser.getIdentityCard());
                 System.out.println("Enter new NRIC:");
-                icNum=scan.nextLine();
+                icNum = scan.nextLine();
                 currentUser.setIdentityCard(icNum);
                 System.out.println("NRIC edited successfully!");
                 break;
@@ -307,9 +310,9 @@ public class OnlineBloodDonation {
                 String phone;
                 scan.nextLine();
                 System.out.println("To Edit...");
-                System.out.println("Current Phone Number : "+ currentUser.getPhoneNumber());
+                System.out.println("Current Phone Number : " + currentUser.getPhoneNumber());
                 System.out.println("Enter new Phone Number:");
-                phone=scan.nextLine();
+                phone = scan.nextLine();
                 currentUser.setPhoneNumber(phone);
                 System.out.println("Phone number edited successfully!");
                 break;
@@ -317,15 +320,15 @@ public class OnlineBloodDonation {
                 String blood;
                 scan.nextLine();
                 System.out.println("To Edit...");
-                System.out.println("Current Blood Type: "+ currentUser.getBloodType());
+                System.out.println("Current Blood Type: " + currentUser.getBloodType());
                 System.out.println("Enter new Blood Type:");
-                blood=scan.nextLine();
+                blood = scan.nextLine();
                 currentUser.setBloodType(blood);
                 System.out.println("Blood type edited successfully!");
                 break;
             case 5:
                 break;
-                
+
         }
     }
 
