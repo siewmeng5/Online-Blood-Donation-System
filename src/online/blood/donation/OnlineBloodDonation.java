@@ -16,8 +16,6 @@ public class OnlineBloodDonation {
     static User currentUser;
 
     public static void main(String[] args) {
-//        profile();
-//        System.out.print("x");
 
         Donation_Centre centre1 = new Donation_Centre("Tengku Ali Blood Donation Centre", "Selangor", "Klang", 33786543);
         Donation_Centre centre2 = new Donation_Centre("Tengku Abu Blood Donation Centre", "Selangor", "Gombak", 33786243);
@@ -80,8 +78,13 @@ public class OnlineBloodDonation {
                                     //Wan Jun
                                     editProfile();
                                     break;
-                                case 4:
+                                case 4: 
+                                    //Wan Jun
+                                    changePsw();
+                                    break;
+                                case 5:
                                     System.out.println("Logging out..");
+                                    loginUser();
                                     systemPause();
                                     break;
                             }
@@ -90,12 +93,6 @@ public class OnlineBloodDonation {
                         //@Wan Jun and @Boon, after user login successfully. You can call your functions here
                     }
 
-//                    if (userChoice2 == 2){
-//                        displayUserMenu();
-//                        userChoice = 1;
-//                        userChoice = scan.nextInt();
-//                        scan.nextLine();
-//                    }
                     break;
 
                 default:
@@ -116,7 +113,8 @@ public class OnlineBloodDonation {
         System.out.println("1. Register Appointment");
         System.out.println("2. View Profile");
         System.out.println("3. Editing Profile");
-        System.out.println("4. Logout");
+        System.out.println("4. Change Password");
+        System.out.println("5. Logout");
         System.out.println("0. Exit system\n");
         System.out.print("Enter choice\n>");
     }
@@ -211,6 +209,7 @@ public class OnlineBloodDonation {
         }
 
         System.out.println("Login Failed...");
+      
         systemPause();
 
         return false;
@@ -329,6 +328,27 @@ public class OnlineBloodDonation {
             case 5:
                 break;
 
+        }
+    }
+    
+    private static void changePsw(){
+        
+        int confirm;
+        String psw;
+        System.out.println("Do you sure to change your password?(1=Y/2=N)");
+        confirm=scan.nextInt();
+        if(confirm==1){
+            System.out.println("Your current password:\n"+ currentUser.getPassword());
+            scan.nextLine();
+            System.out.println("Enter password to change :");
+            psw=scan.nextLine();
+            currentUser.setPassword(psw);
+            System.out.println("Your password has been changd successfully!");
+            scan.nextLine();
+        }
+        else{
+             System.out.println("Your password still remains the same!");
+             scan.nextLine();
         }
     }
 
