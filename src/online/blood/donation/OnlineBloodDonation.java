@@ -17,19 +17,10 @@ public class OnlineBloodDonation {
 
     public static void main(String[] args) {
 
-        Donation_Centre centre1 = new Donation_Centre("Tengku Ali Blood Donation Centre", "Selangor", "Klang", 33786543);
-        Donation_Centre centre2 = new Donation_Centre("Tengku Abu Blood Donation Centre", "Selangor", "Gombak", 33786243);
-        Donation_Centre centre3 = new Donation_Centre("Subang Blood Donation Centre", "Selangor", "Petaling", 33566543);
-        Donation_Centre centre4 = new Donation_Centre("1Malaysia Blood Donation Centre", "Selangor", "Petaling", 33786543);
-        Donation_Centre centre5 = new Donation_Centre("Sultan Mohd Blood Donation Centre", "Selangor", "Kuala Selangor", 33098543);
-        donationCentres.add(centre1);
-        donationCentres.add(centre2);
-        donationCentres.add(centre3);
-        donationCentres.add(centre4);
-        donationCentres.add(centre5);
-
+        initialiseValues();
+        
         int userChoice = 1;
-        int userChoice2 = 1;
+
         while (userChoice != 0) {
             clearConsole();
 
@@ -54,8 +45,9 @@ public class OnlineBloodDonation {
                 case 2:
                     boolean proceed = loginUser();
 
+                    int userChoice2 = 1;
                     if (proceed) {
-                        while (userChoice2 > 0 && userChoice2 != 3) {
+                        while (userChoice2 > 0) {
                             clearConsole();
                             displayUserMenu();
 
@@ -78,19 +70,18 @@ public class OnlineBloodDonation {
                                     //Wan Jun
                                     editProfile();
                                     break;
-                                case 4: 
+                                case 4:
                                     //Wan Jun
                                     changePsw();
                                     break;
                                 case 5:
                                     System.out.println("Logging out..");
-                                    loginUser();
-                                    systemPause();
+                                    userChoice2 = 0;
+                                    currentUser = null;
                                     break;
                             }
                         }
 
-                        //@Wan Jun and @Boon, after user login successfully. You can call your functions here
                     }
 
                     break;
@@ -101,6 +92,22 @@ public class OnlineBloodDonation {
             }
         }
 
+    }
+
+    private static void initialiseValues() {
+        Donation_Centre centre1 = new Donation_Centre("Tengku Ali Blood Donation Centre", "Selangor", "Klang", 33786543);
+        Donation_Centre centre2 = new Donation_Centre("Tengku Abu Blood Donation Centre", "Selangor", "Gombak", 33786243);
+        Donation_Centre centre3 = new Donation_Centre("Subang Blood Donation Centre", "Selangor", "Petaling", 33566543);
+        Donation_Centre centre4 = new Donation_Centre("1Malaysia Blood Donation Centre", "Selangor", "Petaling", 33786543);
+        Donation_Centre centre5 = new Donation_Centre("Sultan Mohd Blood Donation Centre", "Selangor", "Kuala Selangor", 33098543);
+        donationCentres.add(centre1);
+        donationCentres.add(centre2);
+        donationCentres.add(centre3);
+        donationCentres.add(centre4);
+        donationCentres.add(centre5);
+        
+        User user1 = new User("billy", "billy", "gan siew meng", "011129100611", "0122229112", "O");
+        userAccounts.add(user1);
     }
 
     private static void displayUserMenu() {
@@ -185,9 +192,6 @@ public class OnlineBloodDonation {
                 foundIndex = i;
                 break;
             }
-            if (!(userAccounts.get(i).getUsername().equals(username)) && (i + 1) == userAccounts.size()) {
-                System.out.print("Username not found!");
-            }
         }
 
         if (proceed) {
@@ -206,10 +210,12 @@ public class OnlineBloodDonation {
                 }
             }
 
+        } else {
+            System.out.println("Username not found!");
         }
 
         System.out.println("Login Failed...");
-      
+
         systemPause();
 
         return false;
@@ -254,6 +260,7 @@ public class OnlineBloodDonation {
 
         } else {
             System.out.println("No Blood Donation Centre is found at the state you live in.");
+            systemPause();
         }
 
     }
@@ -330,25 +337,24 @@ public class OnlineBloodDonation {
 
         }
     }
-    
-    private static void changePsw(){
-        
+
+    private static void changePsw() {
+
         int confirm;
         String psw;
         System.out.println("Do you sure to change your password?(1=Y/2=N)");
-        confirm=scan.nextInt();
-        if(confirm==1){
-            System.out.println("Your current password:\n"+ currentUser.getPassword());
+        confirm = scan.nextInt();
+        if (confirm == 1) {
+            System.out.println("Your current password:\n" + currentUser.getPassword());
             scan.nextLine();
             System.out.println("Enter password to change :");
-            psw=scan.nextLine();
+            psw = scan.nextLine();
             currentUser.setPassword(psw);
             System.out.println("Your password has been changd successfully!");
             scan.nextLine();
-        }
-        else{
-             System.out.println("Your password still remains the same!");
-             scan.nextLine();
+        } else {
+            System.out.println("Your password still remains the same!");
+            scan.nextLine();
         }
     }
 
