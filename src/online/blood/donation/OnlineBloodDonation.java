@@ -29,8 +29,8 @@ public class OnlineBloodDonation {
             System.out.println("||     SAFELIFE SOCIETY    ||");
             System.out.println("=============================");
 
-            System.out.println("1. Create account");
-            System.out.println("2. Login (User)");
+            System.out.println("1. Create account (Donor)");
+            System.out.println("2. Login (Donor)");
             System.out.println("0. Exit system\n");
             System.out.print("Enter choice\n>");
             userChoice = scan.nextInt();
