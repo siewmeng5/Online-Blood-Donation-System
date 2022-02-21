@@ -10,15 +10,19 @@ public class OnlineBloodDonation {
     static Scanner scan = new Scanner(System.in);
 
     static ArrayList<User> userAccounts = new ArrayList<User>();
+    static ArrayList<Admin> adminAccounts = new ArrayList<Admin>();
+
     static ArrayList<RegisteredDonor> registeredUsers = new ArrayList<RegisteredDonor>();
     static ArrayList<Donation_Centre> donationCentres = new ArrayList<Donation_Centre>();
 
     static User currentUser;
+    static Admin currentAdmin;
 
+    /////////////GENERAL////////////////////////////////////////////////
     public static void main(String[] args) {
 
         initialiseValues();
-        
+
         int userChoice = 1;
 
         while (userChoice != 0) {
@@ -31,6 +35,7 @@ public class OnlineBloodDonation {
 
             System.out.println("1. Create account (Donor)");
             System.out.println("2. Login (Donor)");
+            System.out.println("3. Login (Admin)");
             System.out.println("0. Exit system\n");
             System.out.print("Enter choice\n>");
             userChoice = scan.nextInt();
@@ -78,14 +83,44 @@ public class OnlineBloodDonation {
                                     System.out.println("Logging out..");
                                     userChoice2 = 0;
                                     currentUser = null;
+                                    systemPause();
                                     break;
                             }
                         }
-
                     }
 
                     break;
+                case 3:
+                    boolean proceedForAdmin = loginAdmin();
 
+                    int userChoice3 = 1;
+                    if (proceedForAdmin) {
+                        while (userChoice3 > 0) {
+                            clearConsole();
+                            displayAdminMenu();
+
+                            userChoice3 = scan.nextInt();
+                            scan.nextLine();
+
+                            switch (userChoice3) {
+                                case 1:
+                                    changePasswordAdmin();
+                                    break;
+                                case 99:
+                                    System.out.println("Logging out..");
+                                    userChoice3 = 0;
+                                    currentAdmin = null;
+                                    systemPause();
+                                    break;
+                                default:
+                                    System.out.println("Wrong input entered, please try again!");
+                                    systemPause();
+                                    break;
+                            }
+                        }
+                    }
+
+                    break;
                 default:
                     System.out.println("Error input, please try again.");
                     systemPause();
@@ -105,9 +140,12 @@ public class OnlineBloodDonation {
         donationCentres.add(centre3);
         donationCentres.add(centre4);
         donationCentres.add(centre5);
-        
+
         User user1 = new User("billy", "billy", "gan siew meng", "011129100611", "0122229112", "O");
         userAccounts.add(user1);
+
+        Admin admin1 = new Admin("billy", "billy", "gan siew meng", "011129100611", "0122229112");
+        adminAccounts.add(admin1);
     }
 
     private static void displayUserMenu() {
@@ -126,6 +164,38 @@ public class OnlineBloodDonation {
         System.out.print("Enter choice\n>");
     }
 
+    private static void displayAdminMenu() {
+        System.out.println("=============================");
+        System.out.println("||  ONLINE BLOOD DONATION  ||");
+        System.out.println("||     SAFELIFE SOCIETY    ||");
+        System.out.println("||     (ADMIN MAIN MENU)   ||");
+        System.out.println("=============================");
+
+        System.out.println("1. Change Password");
+        System.out.println("99. Logout");
+        System.out.print("Enter choice\n>");
+    }
+
+    private static void systemPause() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(OnlineBloodDonation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void clearConsole() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+    }
+    /////////////END OF GENERAL/////////////////////////////////////////
+
+    
+    
+    
+    /////////////SIEW MENG//////////////////////////////////////////////
     private static void createAccount() {
         clearConsole();
         scan.nextLine();
@@ -205,7 +275,7 @@ public class OnlineBloodDonation {
                     systemPause();
                     return true;
                 } else {
-                    System.out.print("Wrong password. Please try again (" + i + " times left)\n>");
+                    System.out.print("Wrong password. Please try again (" + i + " tries left)\n>");
                     password = scan.nextLine();
                 }
             }
@@ -221,6 +291,95 @@ public class OnlineBloodDonation {
         return false;
     }
 
+    private static boolean loginAdmin() {
+        clearConsole();
+        scan.nextLine();
+
+        String username;
+        String password;
+
+        boolean proceed = false;
+
+        int foundIndex = -1;
+
+        System.out.print("Enter your username\n>");
+        username = scan.nextLine();
+
+        for (int i = 0; i < adminAccounts.size(); i++) {
+            if (adminAccounts.get(i).getUsername().equals(username)) {
+                proceed = true;
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (proceed) {
+            System.out.print("Enter your password\n>");
+            password = scan.nextLine();
+
+            for (int i = 3; i > 0; i--) {
+                if (adminAccounts.get(foundIndex).getPassword().equals(password)) {
+                    currentAdmin = adminAccounts.get(foundIndex);
+                    System.out.println("Welcome back, " + currentAdmin.getName() + " !");
+                    systemPause();
+                    return true;
+                } else {
+                    System.out.print("Wrong password. Please try again (" + i + " tries left)\n>");
+                    password = scan.nextLine();
+                }
+            }
+
+        } else {
+            System.out.println("Username not found!");
+        }
+
+        System.out.println("Login Failed...");
+
+        systemPause();
+
+        return false;
+    }
+
+    private static void changePasswordAdmin() {
+        clearConsole();
+
+        char confirm;
+        String psw;
+        System.out.println("Proceed to change password? (Y/N)");
+        confirm = scan.next().charAt(0);
+
+        if (Character.toUpperCase(confirm) == 'Y') {
+            System.out.println("Your current password:\n" + currentAdmin.getPassword());
+            scan.nextLine();
+            System.out.println("Enter password to change :");
+            psw = scan.nextLine();
+
+            char confirmToChange;
+
+            System.out.println("Confirm to change password to " + psw + "? (Y/N)");
+            confirmToChange = scan.next().charAt(0);
+
+            if (Character.toUpperCase(confirmToChange) == 'Y') {
+                currentAdmin.setPassword(psw);
+                System.out.println("Your password has been changed successfully!");
+                systemPause();
+            } else {
+                System.out.println("Password changing has been cancelled.");
+                systemPause();
+            }
+
+        } else {
+            System.out.println("Your password remains the same!");
+            systemPause();
+            scan.nextLine();
+        }
+    }
+    /////////////END OF SIEW MENG///////////////////////////////////////
+    
+    
+    
+    
+    /////////////BOON SEONG/////////////////////////////////////////////
     private static void registerAppointment() {
         clearConsole();
 
@@ -264,7 +423,12 @@ public class OnlineBloodDonation {
         }
 
     }
+    /////////////END OF BOON SEONG//////////////////////////////////////
 
+    
+    
+    
+    /////////////WAN JUN////////////////////////////////////////////////
     private static void profile() {
         System.out.println("Your Personal Information");
         System.out.println("=========================");
@@ -351,26 +515,13 @@ public class OnlineBloodDonation {
             psw = scan.nextLine();
             currentUser.setPassword(psw);
             System.out.println("Your password has been changd successfully!");
-            scan.nextLine();
+            systemPause();
         } else {
             System.out.println("Your password still remains the same!");
+            systemPause();
             scan.nextLine();
         }
     }
-
-    private static void systemPause() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(OnlineBloodDonation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void clearConsole() {
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-    }
+    /////////////END OF WAN JUN/////////////////////////////////////////
 
 }
