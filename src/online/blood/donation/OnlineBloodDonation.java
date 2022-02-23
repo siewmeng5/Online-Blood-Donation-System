@@ -161,7 +161,7 @@ public class OnlineBloodDonation {
         System.out.println("4. Change Password");
         System.out.println("5. Logout");
         System.out.println("0. Exit system\n");
-        System.out.print("Enter choice\n>");
+        System.out.print("Enter your choice\n>");
     }
 
     private static void displayAdminMenu() {
@@ -173,7 +173,7 @@ public class OnlineBloodDonation {
 
         System.out.println("1. Change Password");
         System.out.println("99. Logout");
-        System.out.print("Enter choice\n>");
+        System.out.print("Enter your choice\n>");
     }
 
     private static void systemPause() {
