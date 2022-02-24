@@ -106,6 +106,9 @@ public class OnlineBloodDonation {
                                 case 1:
                                     changePasswordAdmin();
                                     break;
+                                case 2:
+                                    viewAllUsers();
+                                    break;
                                 case 99:
                                     System.out.println("Logging out..");
                                     userChoice3 = 0;
@@ -142,7 +145,11 @@ public class OnlineBloodDonation {
         donationCentres.add(centre5);
 
         User user1 = new User("billy", "billy", "gan siew meng", "011129100611", "0122229112", "O");
+        User user2 = new User("boon", "boon", "ng boon seong", "010635909089", "0166454590", "A");
+        User user3 = new User("wanjun", "wanjun", "wan jun", "011031280764", "0112132456", "AB");
         userAccounts.add(user1);
+        userAccounts.add(user2);
+        userAccounts.add(user3);
 
         Admin admin1 = new Admin("billy", "billy", "gan siew meng", "011129100611", "0122229112");
         adminAccounts.add(admin1);
@@ -172,6 +179,7 @@ public class OnlineBloodDonation {
         System.out.println("=============================");
 
         System.out.println("1. Change Password");
+        System.out.println("2. View All Registered Donors");
         System.out.println("99. Logout");
         System.out.print("Enter your choice\n>");
     }
@@ -192,9 +200,6 @@ public class OnlineBloodDonation {
     }
     /////////////END OF GENERAL/////////////////////////////////////////
 
-    
-    
-    
     /////////////SIEW MENG//////////////////////////////////////////////
     private static void createAccount() {
         clearConsole();
@@ -375,10 +380,7 @@ public class OnlineBloodDonation {
         }
     }
     /////////////END OF SIEW MENG///////////////////////////////////////
-    
-    
-    
-    
+
     /////////////BOON SEONG/////////////////////////////////////////////
     private static void registerAppointment() {
         clearConsole();
@@ -423,11 +425,18 @@ public class OnlineBloodDonation {
         }
 
     }
+
+    private static void viewAllUsers() {
+        clearConsole();
+        System.out.println("NAME \t\t\tIC NUMBER\t\tPHONE NUMBER\t\tBLOOD TYPE");
+        System.out.println("===================================================================================");
+        for (int i = 0; i < userAccounts.size(); i++) {
+            System.out.println(userAccounts.get(i).toString());
+        }
+        scan.nextLine();
+    }
     /////////////END OF BOON SEONG//////////////////////////////////////
 
-    
-    
-    
     /////////////WAN JUN////////////////////////////////////////////////
     private static void profile() {
         System.out.println("Your Personal Information");

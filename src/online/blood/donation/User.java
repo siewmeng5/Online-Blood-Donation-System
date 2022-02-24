@@ -10,6 +10,7 @@ package online.blood.donation;
  * @author Billy
  */
 public class User {
+
     private String username;
     private String password;
     private String name;
@@ -61,7 +62,7 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
+
     public String getBloodType() {
         return bloodType;
     }
@@ -69,7 +70,10 @@ public class User {
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return String.format("%-22s %-25s %-26s %-25s", name, identityCard, phoneNumber, bloodType);
+    }
+
 }
