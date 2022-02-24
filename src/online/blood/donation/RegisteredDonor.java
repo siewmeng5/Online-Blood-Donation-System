@@ -13,7 +13,7 @@ public class RegisteredDonor {
 
     private User registeredDonor;
     private Donation_Centre selectedCentre;
-
+    
     public RegisteredDonor() {
     }
 
@@ -42,5 +42,8 @@ public class RegisteredDonor {
     public String toString() {
         return "\nDonor Name:" + registeredDonor.getName() + "\n" + "IC Number:" + registeredDonor.getIdentityCard() + "\n" + selectedCentre + "\n";
     }
-
+    
+    public String cancelToString(){
+        return registeredDonor.getName() + "\n" + selectedCentre.getCentreName();
+    }
 }

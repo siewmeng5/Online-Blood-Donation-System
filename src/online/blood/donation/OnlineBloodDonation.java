@@ -17,7 +17,8 @@ public class OnlineBloodDonation {
 
     static User currentUser;
     static Admin currentAdmin;
-
+    static RegisteredDonor registeredDonor;
+    
     /////////////GENERAL////////////////////////////////////////////////
     public static void main(String[] args) {
 
@@ -69,17 +70,21 @@ public class OnlineBloodDonation {
                                     break;
                                 case 2:
                                     //Wan Jun
-                                    profile();
+                                    cancelAppointment();
                                     break;
                                 case 3:
                                     //Wan Jun
-                                    editProfile();
+                                    profile();
                                     break;
                                 case 4:
                                     //Wan Jun
-                                    changePsw();
+                                    editProfile();
                                     break;
                                 case 5:
+                                    //Wan Jun
+                                    changePsw();
+                                    break;
+                                case 6:
                                     System.out.println("Logging out..");
                                     userChoice2 = 0;
                                     currentUser = null;
@@ -163,10 +168,11 @@ public class OnlineBloodDonation {
         System.out.println("=============================");
 
         System.out.println("1. Register Appointment");
-        System.out.println("2. View Profile");
-        System.out.println("3. Editing Profile");
-        System.out.println("4. Change Password");
-        System.out.println("5. Logout");
+        System.out.println("2. Cancel Appointment");
+        System.out.println("3. View Profile");
+        System.out.println("4. Editing Profile");
+        System.out.println("5. Change Password");
+        System.out.println("6. Logout");
         System.out.println("0. Exit system\n");
         System.out.print("Enter your choice\n>");
     }
@@ -531,6 +537,31 @@ public class OnlineBloodDonation {
             scan.nextLine();
         }
     }
+    
+    private static void cancelAppointment(){
+       
+        int cancel;
+        scan.nextLine();
+        appointmentList();
+        System.out.println("Enter index num of appointmen to cancel(0 to exit):");
+        cancel=scan.nextInt();
+        
+        if(cancel>=0 && cancel<=registeredUsers.size()){
+            registeredUsers.remove(cancel-1);
+            System.out.println("Appointment cancel...");
+        }
+        else{
+            System.out.println("No appointment cancel...");
+        }
+        
+    }
+    
+    private static void appointmentList(){
+        for(int i = 0; i < registeredUsers.size(); i++){
+            RegisteredDonor users = registeredUsers.get(i);
+            System.out.println( i+1 + ". " + users.cancelToString());
+        }
+    }
     /////////////END OF WAN JUN/////////////////////////////////////////
-
+    
 }

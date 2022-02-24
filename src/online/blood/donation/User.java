@@ -27,6 +27,10 @@ public class User {
         this.bloodType = bloodType;
     }
 
+    public void setUserName(String username) {
+        this.username = username;
+    }
+    
     public String getUsername() {
         return username;
     }
