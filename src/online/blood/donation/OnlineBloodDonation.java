@@ -17,7 +17,6 @@ public class OnlineBloodDonation {
 
     static User currentUser;
     static Admin currentAdmin;
-    static RegisteredDonor registeredDonor;
     
     /////////////GENERAL////////////////////////////////////////////////
     public static void main(String[] args) {
@@ -543,15 +542,15 @@ public class OnlineBloodDonation {
         int cancel;
         scan.nextLine();
         appointmentList();
-        System.out.println("Enter index num of appointmen to cancel(0 to exit):");
+        System.out.println("Enter index num of appointment to cancel(0 to exit):");
         cancel=scan.nextInt();
         
-        if(cancel>=0 && cancel<=registeredUsers.size()){
+        if(cancel>0 && cancel<=registeredUsers.size()){
             registeredUsers.remove(cancel-1);
-            System.out.println("Appointment cancel...");
+            System.out.println("Appointment canceled...");
         }
         else{
-            System.out.println("No appointment cancel...");
+            System.out.println("No appointment has been canceled...");
         }
         
     }
