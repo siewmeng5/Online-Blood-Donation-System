@@ -17,7 +17,7 @@ public class OnlineBloodDonation {
 
     static User currentUser;
     static Admin currentAdmin;
-    
+
     /////////////GENERAL////////////////////////////////////////////////
     public static void main(String[] args) {
 
@@ -435,8 +435,9 @@ public class OnlineBloodDonation {
     private static void viewAllUsers() {
         clearConsole();
 
+        System.out.println("====================================================================================");
         System.out.println("NAME \t\t\tIC NUMBER\t\tPHONE NUMBER\t\tBLOOD TYPE");
-        System.out.println("===================================================================================");
+        System.out.println("====================================================================================");
         for (int i = 0; i < userAccounts.size(); i++) {
             System.out.println(userAccounts.get(i).toString());
         }
@@ -538,31 +539,30 @@ public class OnlineBloodDonation {
             scan.nextLine();
         }
     }
-    
-    private static void cancelAppointment(){
-       
+
+    private static void cancelAppointment() {
+
         int cancel;
         scan.nextLine();
         appointmentList();
         System.out.println("Enter index num of appointment to cancel(0 to exit):");
-        cancel=scan.nextInt();
-        
-        if(cancel>0 && cancel<=registeredUsers.size()){
-            registeredUsers.remove(cancel-1);
+        cancel = scan.nextInt();
+
+        if (cancel > 0 && cancel <= registeredUsers.size()) {
+            registeredUsers.remove(cancel - 1);
             System.out.println("Appointment canceled...");
-        }
-        else{
+        } else {
             System.out.println("No appointment has been canceled...");
         }
-        
+
     }
-    
-    private static void appointmentList(){
-        for(int i = 0; i < registeredUsers.size(); i++){
+
+    private static void appointmentList() {
+        for (int i = 0; i < registeredUsers.size(); i++) {
             RegisteredDonor users = registeredUsers.get(i);
-            System.out.println( i+1 + ". " + users.cancelToString());
+            System.out.println(i + 1 + ". " + users.cancelToString());
         }
     }
     /////////////END OF WAN JUN/////////////////////////////////////////
-    
+
 }
