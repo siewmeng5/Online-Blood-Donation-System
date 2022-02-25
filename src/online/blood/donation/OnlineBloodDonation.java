@@ -522,17 +522,28 @@ public class OnlineBloodDonation {
     private static void changePsw() {
 
         int confirm;
-        String psw;
+        String psw1,psw2;
         System.out.println("Do you sure to change your password?(1=Y/2=N)");
         confirm = scan.nextInt();
         if (confirm == 1) {
             System.out.println("Your current password:\n" + currentUser.getPassword());
             scan.nextLine();
+            do{
             System.out.println("Enter password to change :");
-            psw = scan.nextLine();
-            currentUser.setPassword(psw);
-            System.out.println("Your password has been changd successfully!");
-            systemPause();
+            psw1 = scan.nextLine();
+            System.out.println("Confirm password :");
+            psw2 = scan.nextLine();
+            if(psw1.equals(psw2)){
+                currentUser.setPassword(psw1);
+                System.out.println("Your password has been changd successfully!");
+                systemPause();
+                break;
+            }
+            else{
+                System.out.println("Please enter new password again.");
+            }
+            }while(psw1 != psw2);
+            
         } else {
             System.out.println("Your password still remains the same!");
             systemPause();
@@ -541,26 +552,35 @@ public class OnlineBloodDonation {
     }
 
     private static void cancelAppointment() {
-
         int cancel;
+        int x=0;
         scan.nextLine();
-        appointmentList();
-        System.out.println("Enter index num of appointment to cancel(0 to exit):");
-        cancel = scan.nextInt();
-
-        if (cancel > 0 && cancel <= registeredUsers.size()) {
-            registeredUsers.remove(cancel - 1);
-            System.out.println("Appointment canceled...");
-        } else {
-            System.out.println("No appointment has been canceled...");
-        }
-
-    }
-
-    private static void appointmentList() {
-        for (int i = 0; i < registeredUsers.size(); i++) {
-            RegisteredDonor users = registeredUsers.get(i);
-            System.out.println(i + 1 + ". " + users.cancelToString());
+        
+        if(registeredUsers.size()!=0 ){
+            for (int i = 0; i < registeredUsers.size(); i++) {
+                RegisteredDonor users = registeredUsers.get(i);
+                if(users.checkName()==currentUser.getName()){
+                    System.out.println("Your appointment ID is 100" + (i+1) + ". \n" + users.cancelToString());
+                    x++;
+                }
+            }
+            if (x >0)
+            {
+                System.out.println("Enter appointment ID to cancel(0 to exit):");
+                cancel = scan.nextInt();
+                if (cancel > 0 && cancel <= registeredUsers.size()+1000) {
+                    registeredUsers.remove(cancel - 1001);
+                    System.out.println("Appointment canceled...");
+                } else {
+                    System.out.println("No appointment has been canceled...");
+                }
+            }
+            else{
+                System.out.println("No appointment registered yet...");
+            }
+            
+        }else{
+            System.out.println("No appointment registered yet...");
         }
     }
     /////////////END OF WAN JUN/////////////////////////////////////////

@@ -46,4 +46,8 @@ public class RegisteredDonor {
     public String cancelToString(){
         return registeredDonor.getName() + "\n" + selectedCentre.getCentreName();
     }
+    
+    public String checkName(){
+        return registeredDonor.getName();
+    }
 }
