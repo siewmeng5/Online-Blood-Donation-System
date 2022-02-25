@@ -77,6 +77,7 @@ public class User {
 
     @Override
     public String toString() {
+
         return String.format("%-22s %-25s %-26s %-25s", name, identityCard, phoneNumber, bloodType);
     }
 

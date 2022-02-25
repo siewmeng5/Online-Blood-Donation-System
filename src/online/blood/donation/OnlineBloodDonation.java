@@ -111,6 +111,7 @@ public class OnlineBloodDonation {
                                     changePasswordAdmin();
                                     break;
                                 case 2:
+                                    //Boon
                                     viewAllUsers();
                                     break;
                                 case 99:
@@ -433,6 +434,7 @@ public class OnlineBloodDonation {
 
     private static void viewAllUsers() {
         clearConsole();
+
         System.out.println("NAME \t\t\tIC NUMBER\t\tPHONE NUMBER\t\tBLOOD TYPE");
         System.out.println("===================================================================================");
         for (int i = 0; i < userAccounts.size(); i++) {
