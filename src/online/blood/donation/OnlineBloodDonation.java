@@ -185,7 +185,7 @@ public class OnlineBloodDonation {
         System.out.println("=============================");
 
         System.out.println("1. Change Password");
-        System.out.println("2. View All Registered Donors");
+        System.out.println("2. View All User Accounts");
         System.out.println("99. Logout");
         System.out.print("Enter your choice\n>");
     }
@@ -404,7 +404,7 @@ public class OnlineBloodDonation {
 //        System.out.print("Enter the district you living\n>");
 //        userDistrict = scan.nextLine();
         for (int i = 0; i < donationCentres.size(); i++) {
-            if (donationCentres.get(i).getState().equals(userState)) {
+            if (donationCentres.get(i).getState().equalsIgnoreCase(userState)) {
                 temp = donationCentres.get(i);
                 tempCentres.add(temp);
             }
@@ -421,10 +421,10 @@ public class OnlineBloodDonation {
 
             RegisteredDonor newRegistered = new RegisteredDonor(currentUser, tempCentres.get(indexNum - 1));
             registeredUsers.add(newRegistered);
-            System.out.print("\nRegistration successful. An apointment will be sent to you soon!\n");
-            //System.out.print(registeredUsers.toString());
+            System.out.println("\nRegistration successful. An apointment will be sent to you soon!");
 
-            systemPause();
+            scan.nextLine();
+            scan.nextLine();
 
         } else {
             System.out.println("No Blood Donation Centre is found at the state you live in.");
