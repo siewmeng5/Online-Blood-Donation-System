@@ -554,7 +554,7 @@ public class OnlineBloodDonation {
     private static void cancelAppointment() {
         int cancel;
         int x = 0;
-        scan.nextLine();
+        //scan.nextLine();
 
         if (registeredUsers.size() != 0) {
             for (int i = 0; i < registeredUsers.size(); i++) {
@@ -571,15 +571,19 @@ public class OnlineBloodDonation {
                 if (cancel > 0 && cancel <= registeredUsers.size() + 1000) {
                     registeredUsers.remove(cancel - 1001);
                     System.out.println("Appointment canceled...");
+                    systemPause();
                 } else {
                     System.out.println("No appointment has been canceled...");
+                    systemPause();
                 }
             } else {
                 System.out.println("No appointment registered yet...");
+                systemPause();
             }
 
         } else {
             System.out.println("No appointment registered yet...");
+            systemPause();
         }
     }
     /////////////END OF WAN JUN/////////////////////////////////////////
