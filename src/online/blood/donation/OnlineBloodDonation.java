@@ -394,7 +394,7 @@ public class OnlineBloodDonation {
         ArrayList<Donation_Centre> tempCentres = new ArrayList<Donation_Centre>();
 
         String userState;
-        String userDistrict;
+        //String userDistrict;
         int indexNum;
         Donation_Centre temp = new Donation_Centre();
 
