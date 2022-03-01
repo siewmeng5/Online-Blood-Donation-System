@@ -427,7 +427,7 @@ public class OnlineBloodDonation {
             System.out.println("\nRegistration successful. An apointment will be sent to you soon!");
 
             scan.nextLine();
-            scan.nextLine();
+            systemPause();
 
         } else {
             System.out.println("No Blood Donation Centre is found at the state you live in.");
