@@ -476,6 +476,7 @@ public class OnlineBloodDonation {
 
         System.out.println("Enter you selection to edit > ");
         selection = scan.nextInt();
+        
         switch (selection) {
             case 1:
                 String name;
@@ -492,20 +493,33 @@ public class OnlineBloodDonation {
                 scan.nextLine();
                 System.out.println("To Edit...");
                 System.out.println("Current NRIC : " + currentUser.getIdentityCard());
+                do{
                 System.out.println("Enter new NRIC:");
                 icNum = scan.nextLine();
-                currentUser.setIdentityCard(icNum);
-                System.out.println("NRIC edited successfully!");
+                if(icNum.length()!=12){
+                    System.out.println("Invalid NRIC number. Please enter again.");
+                }else{
+                    currentUser.setIdentityCard(icNum);
+                    System.out.println("NRIC edited successfully!");
+                }
+                }while(icNum.length()!= 12);
                 break;
             case 3:
                 String phone;
                 scan.nextLine();
                 System.out.println("To Edit...");
                 System.out.println("Current Phone Number : " + currentUser.getPhoneNumber());
+                do{
                 System.out.println("Enter new Phone Number:");
                 phone = scan.nextLine();
-                currentUser.setPhoneNumber(phone);
-                System.out.println("Phone number edited successfully!");
+                if(phone.length()<10 || phone.length()>12){
+                    System.out.println("Pelase enter phone number between 10 to 11 digit without dash.");                   
+                }else{
+                     currentUser.setPhoneNumber(phone);
+                     System.out.println("Phone number edited successfully!");
+                }
+                }while(phone.length()<10 || phone.length()>12);
+            
                 break;
             case 4:
                 String blood;
@@ -563,7 +577,7 @@ public class OnlineBloodDonation {
             for (int i = 0; i < registeredUsers.size(); i++) {
                 RegisteredDonor users = registeredUsers.get(i);
                 if (users.checkName() == currentUser.getName()) {
-                    System.out.println("Your appointment ID is 100" + (i + 1) + ". \n" + users.cancelToString());
+                    System.out.println("Your appointment ID is 100" + (i) + ". \n" + users.cancelToString());
                     System.out.println("============================================");
                     x++;
                 }
@@ -572,7 +586,7 @@ public class OnlineBloodDonation {
                 System.out.println("Enter appointment ID to cancel(0 to exit):");
                 cancel = scan.nextInt();
                 if (cancel > 0 && cancel <= registeredUsers.size() + 1000) {
-                    registeredUsers.remove(cancel - 1001);
+                    registeredUsers.remove(cancel - 1000);
                     System.out.println("Appointment canceled...");
                     systemPause();
                 } else {
