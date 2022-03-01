@@ -156,6 +156,9 @@ public class OnlineBloodDonation {
         userAccounts.add(user2);
         userAccounts.add(user3);
 
+        RegisteredDonor registeredAppointment1 = new RegisteredDonor(user1, centre3);
+        registeredUsers.add(registeredAppointment1);
+
         Admin admin1 = new Admin("billy", "billy", "gan siew meng", "011129100611", "0122229112");
         adminAccounts.add(admin1);
     }
