@@ -523,13 +523,24 @@ public class OnlineBloodDonation {
                 break;
             case 4:
                 String blood;
+                String b1="A";
+                String b2="B";
+                String b3="O";
+                String b4="AB";
                 scan.nextLine();
                 System.out.println("To Edit...");
                 System.out.println("Current Blood Type: " + currentUser.getBloodType());
+                do{
                 System.out.println("Enter new Blood Type:");
                 blood = scan.nextLine();
-                currentUser.setBloodType(blood);
-                System.out.println("Blood type edited successfully!");
+                if(blood.equals(b1)||blood.equals(b2)||blood.equals(b3)||blood.equals(b4)){
+                    currentUser.setBloodType(blood);
+                    System.out.println("Blood type edited successfully!");
+                    break;
+                }else{
+                    System.out.println("Please enter a valid blood type!");
+                }}while(blood!=b1||blood!=b2||blood!=b3||blood!=b4);
+//                                             
                 break;
             case 5:
                 break;
