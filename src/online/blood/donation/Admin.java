@@ -3,7 +3,7 @@ package online.blood.donation;
 
 /**
  *
- * @author Billy
+ * @author Siew Meng
  */
 public class Admin {
     private String username;
