@@ -11,13 +11,15 @@ public class Admin {
     private String name;
     private String identityCard;
     private String phoneNumber;
+    private boolean isActive;
 
-    public Admin(String username, String password, String name, String identityCard, String phoneNumber) {
+    public Admin(String username, String password, String name, String identityCard, String phoneNumber, boolean isActive) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.identityCard = identityCard;
         this.phoneNumber = phoneNumber;
+        this.isActive = isActive;
     }
 
     public String getUsername() {
@@ -55,4 +57,14 @@ public class Admin {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+    
+    
 }

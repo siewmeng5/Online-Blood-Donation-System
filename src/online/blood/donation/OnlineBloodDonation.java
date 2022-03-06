@@ -114,6 +114,9 @@ public class OnlineBloodDonation {
                                     //Boon
                                     viewAllUsers();
                                     break;
+                                case 3:
+                                    deactivateAdminAccount();
+                                    break;
                                 case 99:
                                     System.out.println("Logging out..");
                                     userChoice3 = 0;
@@ -159,8 +162,13 @@ public class OnlineBloodDonation {
         RegisteredDonor registeredAppointment1 = new RegisteredDonor(user1, centre3);
         registeredUsers.add(registeredAppointment1);
 
-        Admin admin1 = new Admin("billy", "billy", "gan siew meng", "011129100611", "0122229112");
+        Admin admin1 = new Admin("billy", "billy", "gan siew meng", "011129100611", "0122229112", true);
+        Admin admin2 = new Admin("boon", "boon", "ng boon seong", "010635909089", "0166454590", true);
+        Admin admin3 = new Admin("wanjun", "wanjun", "chua wan jun", "011031280764", "0112132456", true);
+
         adminAccounts.add(admin1);
+        adminAccounts.add(admin2);
+        adminAccounts.add(admin3);
     }
 
     private static void displayUserMenu() {
@@ -189,6 +197,7 @@ public class OnlineBloodDonation {
 
         System.out.println("1. Change Password");
         System.out.println("2. View All User Accounts");
+        System.out.println("3. Deactivate an Admin Account");
         System.out.println("99. Logout");
         System.out.print("Enter your choice\n>");
     }
@@ -327,7 +336,17 @@ public class OnlineBloodDonation {
             }
         }
 
+        boolean proceedAfterCheckActive = false;
+
         if (proceed) {
+            if (adminAccounts.get(foundIndex).isIsActive()) {
+                proceedAfterCheckActive = true;
+            } else {
+                System.out.println("Sorry, your account has been deactivated.");
+            }
+        }
+
+        if (proceedAfterCheckActive) {
             System.out.print("Enter your password\n>");
             password = scan.nextLine();
 
@@ -343,7 +362,7 @@ public class OnlineBloodDonation {
                 }
             }
 
-        } else {
+        } else if (proceedAfterCheckActive == false && proceed == false) {
             System.out.println("Username not found!");
         }
 
@@ -387,6 +406,60 @@ public class OnlineBloodDonation {
             systemPause();
             scan.nextLine();
         }
+    }
+
+    private static void deactivateAdminAccount() {
+        clearConsole();
+
+        String tempUsername;
+        char userConfirmation;
+        boolean proceed = false;
+        int foundIndex = -1;
+
+        System.out.println("------------------------------------------------------------");
+        System.out.println("| No | Username          | Admin              | Status     |");
+        System.out.println("------------------------------------------------------------");
+
+        int counter = 1;
+        for (int i = 0; i < adminAccounts.size(); i++) {
+            if (adminAccounts.get(i).getUsername().equals(currentAdmin.getUsername())) {
+                continue;
+            }
+            System.out.printf("| %-2d | %-17s | %-18s | %-10s |\n", counter++, adminAccounts.get(i).getUsername(), adminAccounts.get(i).getName(),
+                    (adminAccounts.get(i).isIsActive() == true ? "Active" : "Inactive"));
+            System.out.println("------------------------------------------------------------");
+        }
+
+        System.out.println("Enter the admin's username (0 to exit) :");
+        tempUsername = scan.nextLine();
+
+        if (tempUsername.equals("0") != true) {
+            for (int i = 0; i < adminAccounts.size(); i++) {
+                if (adminAccounts.get(i).getUsername().equals(tempUsername)) {
+                    proceed = true;
+                    foundIndex = i;
+                    break;
+                }
+            }
+
+            if (proceed) {
+                System.out.println("Confirm to deactivate " + adminAccounts.get(foundIndex).getUsername() + "(" + adminAccounts.get(foundIndex).getName() + ")? (Y/N)");
+                userConfirmation = scan.next().charAt(0);
+
+                if (Character.toUpperCase(userConfirmation) == 'Y') {
+                    adminAccounts.get(foundIndex).setIsActive(false);
+                    System.out.println(adminAccounts.get(foundIndex).getUsername() + "(" + adminAccounts.get(foundIndex).getName() + ")" + "'s account has been deactivated.");
+                } else {
+                    System.out.println("Admin deactivation has been cancelled.");
+                }
+            } else {
+                System.out.println("The username of the admin is not found!");
+            }
+        } else {
+            System.out.println("Exiting..");
+        }
+
+        systemPause();
     }
     /////////////END OF SIEW MENG///////////////////////////////////////
 
@@ -476,7 +549,7 @@ public class OnlineBloodDonation {
 
         System.out.println("Enter you selection to edit > ");
         selection = scan.nextInt();
-        
+
         switch (selection) {
             case 1:
                 String name;
@@ -493,53 +566,54 @@ public class OnlineBloodDonation {
                 scan.nextLine();
                 System.out.println("To Edit...");
                 System.out.println("Current NRIC : " + currentUser.getIdentityCard());
-                do{
-                System.out.println("Enter new NRIC:");
-                icNum = scan.nextLine();
-                if(icNum.length()!=12){
-                    System.out.println("Invalid NRIC number. Please enter again.");
-                }else{
-                    currentUser.setIdentityCard(icNum);
-                    System.out.println("NRIC edited successfully!");
-                }
-                }while(icNum.length()!= 12);
+                do {
+                    System.out.println("Enter new NRIC:");
+                    icNum = scan.nextLine();
+                    if (icNum.length() != 12) {
+                        System.out.println("Invalid NRIC number. Please enter again.");
+                    } else {
+                        currentUser.setIdentityCard(icNum);
+                        System.out.println("NRIC edited successfully!");
+                    }
+                } while (icNum.length() != 12);
                 break;
             case 3:
                 String phone;
                 scan.nextLine();
                 System.out.println("To Edit...");
                 System.out.println("Current Phone Number : " + currentUser.getPhoneNumber());
-                do{
-                System.out.println("Enter new Phone Number:");
-                phone = scan.nextLine();
-                if(phone.length()<10 || phone.length()>12){
-                    System.out.println("Pelase enter phone number between 10 to 11 digit without dash.");                   
-                }else{
-                     currentUser.setPhoneNumber(phone);
-                     System.out.println("Phone number edited successfully!");
-                }
-                }while(phone.length()<10 || phone.length()>12);
-            
+                do {
+                    System.out.println("Enter new Phone Number:");
+                    phone = scan.nextLine();
+                    if (phone.length() < 10 || phone.length() > 12) {
+                        System.out.println("Pelase enter phone number between 10 to 11 digit without dash.");
+                    } else {
+                        currentUser.setPhoneNumber(phone);
+                        System.out.println("Phone number edited successfully!");
+                    }
+                } while (phone.length() < 10 || phone.length() > 12);
+
                 break;
             case 4:
                 String blood;
-                String b1="A";
-                String b2="B";
-                String b3="O";
-                String b4="AB";
+                String b1 = "A";
+                String b2 = "B";
+                String b3 = "O";
+                String b4 = "AB";
                 scan.nextLine();
                 System.out.println("To Edit...");
                 System.out.println("Current Blood Type: " + currentUser.getBloodType());
-                do{
-                System.out.println("Enter new Blood Type:");
-                blood = scan.nextLine();
-                if(blood.equals(b1)||blood.equals(b2)||blood.equals(b3)||blood.equals(b4)){
-                    currentUser.setBloodType(blood);
-                    System.out.println("Blood type edited successfully!");
-                    break;
-                }else{
-                    System.out.println("Please enter a valid blood type!");
-                }}while(blood!=b1||blood!=b2||blood!=b3||blood!=b4);
+                do {
+                    System.out.println("Enter new Blood Type:");
+                    blood = scan.nextLine();
+                    if (blood.equals(b1) || blood.equals(b2) || blood.equals(b3) || blood.equals(b4)) {
+                        currentUser.setBloodType(blood);
+                        System.out.println("Blood type edited successfully!");
+                        break;
+                    } else {
+                        System.out.println("Please enter a valid blood type!");
+                    }
+                } while (blood != b1 || blood != b2 || blood != b3 || blood != b4);
 //                                             
                 break;
             case 5:
