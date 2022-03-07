@@ -5,6 +5,8 @@
  */
 package online.blood.donation;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Billy
@@ -17,6 +19,10 @@ public class User {
     private String identityCard;
     private String phoneNumber;
     private String bloodType;
+    private ArrayList<DonationHistory> donationHistory;
+
+    public User() {
+    }
 
     public User(String username, String password, String name, String identityCard, String phoneNumber, String bloodType) {
         this.username = username;
@@ -25,6 +31,16 @@ public class User {
         this.identityCard = identityCard;
         this.phoneNumber = phoneNumber;
         this.bloodType = bloodType;
+    }
+
+    public User(String username, String password, String name, String identityCard, String phoneNumber, String bloodType, ArrayList<DonationHistory> donationHistory) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.identityCard = identityCard;
+        this.phoneNumber = phoneNumber;
+        this.bloodType = bloodType;
+        this.donationHistory = donationHistory;
     }
 
     public void setUserName(String username) {
@@ -73,6 +89,14 @@ public class User {
 
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
+    }
+
+    public ArrayList<DonationHistory> getDonationHistory() {
+        return donationHistory;
+    }
+
+    public void setDonationHistory(ArrayList<DonationHistory> donationHistory) {
+        this.donationHistory = donationHistory;
     }
 
     @Override

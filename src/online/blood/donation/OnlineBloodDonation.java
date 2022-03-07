@@ -1,5 +1,6 @@
 package online.blood.donation;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -41,6 +42,7 @@ public class OnlineBloodDonation {
             userChoice = scan.nextInt();
 
             switch (userChoice) {
+                //Donor
                 case 0:
                     System.out.println("Thank you for using this system!");
                     break;
@@ -94,6 +96,7 @@ public class OnlineBloodDonation {
                     }
 
                     break;
+                //Admin
                 case 3:
                     boolean proceedForAdmin = loginAdmin();
 
@@ -116,6 +119,9 @@ public class OnlineBloodDonation {
                                     break;
                                 case 3:
                                     deactivateAdminAccount();
+                                    break;
+                                case 4:
+                                    completeAppointment();
                                     break;
                                 case 99:
                                     System.out.println("Logging out..");
@@ -198,6 +204,7 @@ public class OnlineBloodDonation {
         System.out.println("1. Change Password");
         System.out.println("2. View All User Accounts");
         System.out.println("3. Deactivate an Admin Account");
+        System.out.println("4. Complete Donor's Appointmnet");
         System.out.println("99. Logout");
         System.out.print("Enter your choice\n>");
     }
@@ -470,15 +477,12 @@ public class OnlineBloodDonation {
         ArrayList<Donation_Centre> tempCentres = new ArrayList<Donation_Centre>();
 
         String userState;
-        //String userDistrict;
         int indexNum;
         Donation_Centre temp = new Donation_Centre();
 
         System.out.print("Enter the state you live in\n>");
         userState = scan.nextLine();
 
-//        System.out.print("Enter the district you living\n>");
-//        userDistrict = scan.nextLine();
         for (int i = 0; i < donationCentres.size(); i++) {
             if (donationCentres.get(i).getState().equalsIgnoreCase(userState)) {
                 temp = donationCentres.get(i);
@@ -504,6 +508,55 @@ public class OnlineBloodDonation {
 
         } else {
             System.out.println("No Blood Donation Centre is found at the state you live in.");
+            systemPause();
+        }
+
+    }
+
+    private static void completeAppointment() {
+        clearConsole();
+
+        String userIcNum;
+        String date;
+        char ans;
+        int index = 0;
+        User donor = new User();
+
+        System.out.print("Enter Donor IC Number\n>");
+        userIcNum = scan.nextLine();
+        for (int i = 0; i < userAccounts.size(); i++) {
+            if (userAccounts.get(i).getIdentityCard().equals(userIcNum)) {
+                donor = userAccounts.get(i);
+                index = 1;
+            }
+        }
+        if (index == 1) {
+            for (int i = 0; i < registeredUsers.size(); i++) {
+                if (registeredUsers.get(i).getRegisteredUser().equals(donor)) {
+                    System.out.println(registeredUsers.get(i).toString());
+                    System.out.println("Confirm conplete appointment?(Y/N) > ");
+                    ans = scan.next().charAt(0);
+                    if (ans == 'y' || ans == 'Y') {
+                        ArrayList<DonationHistory> history = new ArrayList<DonationHistory>();
+                        LocalDate todayDate = LocalDate.now();
+                        DonationHistory temp = new DonationHistory(registeredUsers.get(i).getSelectedCentre(), todayDate);
+                        donor.setDonationHistory(history);
+                        history.add(temp);
+
+                        System.out.println("Appointment completed successfully...");
+                        systemPause();
+
+                    } else {
+                        System.out.println("Canceled...");
+                        systemPause();
+                    }
+                } else {
+                    System.out.println("No blood donation appointment registered...");
+                    systemPause();
+                }
+            }
+        } else {
+            System.out.println("Donor not found...");
             systemPause();
         }
 
@@ -614,7 +667,7 @@ public class OnlineBloodDonation {
                         System.out.println("Please enter a valid blood type!");
                     }
                 } while (blood != b1 || blood != b2 || blood != b3 || blood != b4);
-//                                             
+//
                 break;
             case 5:
                 break;
