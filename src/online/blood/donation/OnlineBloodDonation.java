@@ -423,18 +423,18 @@ public class OnlineBloodDonation {
         boolean proceed = false;
         int foundIndex = -1;
 
-        System.out.println("------------------------------------------------------------");
-        System.out.println("| No | Username          | Admin              | Status     |");
-        System.out.println("------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("| No | Username          | Admin              | Status      |");
+        System.out.println("-------------------------------------------------------------");
 
         int counter = 1;
         for (int i = 0; i < adminAccounts.size(); i++) {
             if (adminAccounts.get(i).getUsername().equals(currentAdmin.getUsername())) {
                 continue;
             }
-            System.out.printf("| %-2d | %-17s | %-18s | %-10s |\n", counter++, adminAccounts.get(i).getUsername(), adminAccounts.get(i).getName(),
+            System.out.printf("| %-2d | %-17s | %-18s | %-11s |\n", counter++, adminAccounts.get(i).getUsername(), adminAccounts.get(i).getName(),
                     (adminAccounts.get(i).isIsActive() == true ? "Active" : "Inactive"));
-            System.out.println("------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------");
         }
 
         System.out.println("Enter the admin's username (0 to exit) :");
