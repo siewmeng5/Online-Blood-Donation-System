@@ -166,7 +166,11 @@ public class OnlineBloodDonation {
         userAccounts.add(user3);
 
         RegisteredDonor registeredAppointment1 = new RegisteredDonor(user1, centre3);
+        RegisteredDonor registeredAppointment2 = new RegisteredDonor(user2, centre5);
+        RegisteredDonor registeredAppointment3 = new RegisteredDonor(user3, centre1);
         registeredUsers.add(registeredAppointment1);
+        registeredUsers.add(registeredAppointment2);
+        registeredUsers.add(registeredAppointment3);
 
         Admin admin1 = new Admin("billy", "billy", "gan siew meng", "011129100611", "0122229112", true);
         Admin admin2 = new Admin("boon", "boon", "ng boon seong", "010635909089", "0166454590", true);
@@ -518,42 +522,50 @@ public class OnlineBloodDonation {
 
         String userIcNum;
         char ans;
-        int index = 0;
+        int check = 0, check2 = 0;
         User donor = new User();
+        RegisteredDonor registeredAppointment = new RegisteredDonor();
 
         System.out.print("Enter Donor IC Number\n>");
         userIcNum = scan.nextLine();
         for (int i = 0; i < userAccounts.size(); i++) {
             if (userAccounts.get(i).getIdentityCard().equals(userIcNum)) {
                 donor = userAccounts.get(i);
-                index = 1;
+                check = 1;
             }
         }
-        if (index == 1) {
-            for (int i = 0; i < registeredUsers.size(); i++) {
-                if (registeredUsers.get(i).getRegisteredUser().equals(donor)) {
-                    System.out.println(registeredUsers.get(i).toString());
-                    System.out.println("Confirm conplete appointment?(Y/N) > ");
-                    ans = scan.next().charAt(0);
-                    if (ans == 'y' || ans == 'Y') {
-                        ArrayList<DonationHistory> history = new ArrayList<DonationHistory>();
-                        LocalDate todayDate = LocalDate.now();
-                        DonationHistory temp = new DonationHistory(registeredUsers.get(i).getSelectedCentre(), todayDate);
-                        donor.setDonationHistory(history);
-                        history.add(temp);
+        for (int i = 0; i < registeredUsers.size(); i++) {
+            if (registeredUsers.get(i).getRegisteredUser().equals(donor)) {
+                registeredAppointment = registeredUsers.get(i);
+                check2 = 1;
+            }
+        }
+        if (check == 1) {
+            if (check2 == 1) {;
+                System.out.println(registeredAppointment.toString());
+                System.out.println("Confirm complete appointment?(Y/N) > ");
+                ans = scan.next().charAt(0);
+                if (ans == 'y' || ans == 'Y') {
+                    ArrayList<DonationHistory> history = new ArrayList<DonationHistory>();
+                    LocalDate todayDate = LocalDate.now();
+                    DonationHistory temp = new DonationHistory(registeredAppointment.getSelectedCentre(), todayDate);
+                    donor.setDonationHistory(history);
+                    history.add(temp);
 
-                        System.out.println("Appointment completed successfully...");
-                        systemPause();
+                    registeredUsers.remove(registeredAppointment);
 
-                    } else {
-                        System.out.println("Canceled...");
-                        systemPause();
-                    }
+                    System.out.println("Appointment completed successfully...");
+                    systemPause();
+
                 } else {
-                    System.out.println("No blood donation appointment registered...");
+                    System.out.println("Canceled...");
                     systemPause();
                 }
+            } else {
+                System.out.println("No blood donation appointment registered...");
+                systemPause();
             }
+
         } else {
             System.out.println("Donor not found...");
             systemPause();
