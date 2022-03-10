@@ -1,6 +1,8 @@
 package online.blood.donation;
 
 import java.time.LocalDate;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -19,7 +21,9 @@ public class OnlineBloodDonation {
     static User currentUser;
     static Admin currentAdmin;
 
-    /////////////GENERAL////////////////////////////////////////////////
+     private static final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
+     Date today = new Date();
+/////////////GENERAL////////////////////////////////////////////////
     public static void main(String[] args) {
 
         initialiseValues();
@@ -75,17 +79,21 @@ public class OnlineBloodDonation {
                                     break;
                                 case 3:
                                     //Wan Jun
-                                    profile();
+                                    appointmentHistory();
                                     break;
                                 case 4:
                                     //Wan Jun
-                                    editProfile();
+                                    profile();
                                     break;
                                 case 5:
                                     //Wan Jun
-                                    changePsw();
+                                    editProfile();
                                     break;
                                 case 6:
+                                    //Wan Jun
+                                    changePsw();
+                                    break;
+                                case 7:
                                     System.out.println("Logging out..");
                                     userChoice2 = 0;
                                     currentUser = null;
@@ -190,10 +198,11 @@ public class OnlineBloodDonation {
 
         System.out.println("1. Register Appointment");
         System.out.println("2. Cancel Appointment");
-        System.out.println("3. View Profile");
-        System.out.println("4. Editing Profile");
-        System.out.println("5. Change Password");
-        System.out.println("6. Logout");
+        System.out.println("3. Appointment History");
+        System.out.println("4. View Profile");
+        System.out.println("5. Editing Profile");
+        System.out.println("6. Change Password");
+        System.out.println("7. Logout");
         System.out.println("0. Exit system\n");
         System.out.print("Enter your choice\n>");
     }
@@ -555,6 +564,7 @@ public class OnlineBloodDonation {
                     registeredUsers.remove(registeredAppointment);
 
                     System.out.println("Appointment completed successfully...");
+                    System.out.println(temp.toString());
                     systemPause();
 
                 } else {
@@ -752,6 +762,28 @@ public class OnlineBloodDonation {
             systemPause();
         }
     }
+    
+    private static void appointmentHistory(){
+        LocalDate today=LocalDate.now();
+        
+              
+       System.out.println("Your Blood Donation History");
+       System.out.println(today);
+       System.out.println("Today     :: " + today);
+       System.out.println("Next date :: " + findNextDay(today));
+       System.out.println("Prev date :: " + findPrevDay(today));
+       scan.nextLine();
+    }
+    
+    private static LocalDate findNextDay(LocalDate localdate)
+  {
+    return localdate.plusDays(2);
+  }
+      
+  private static LocalDate findPrevDay(LocalDate localdate)
+  {
+    return localdate.minusDays(1);
+  }
     /////////////END OF WAN JUN/////////////////////////////////////////
 
 }
