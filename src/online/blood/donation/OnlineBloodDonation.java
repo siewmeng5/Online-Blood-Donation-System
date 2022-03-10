@@ -517,7 +517,6 @@ public class OnlineBloodDonation {
         clearConsole();
 
         String userIcNum;
-        String date;
         char ans;
         int index = 0;
         User donor = new User();
