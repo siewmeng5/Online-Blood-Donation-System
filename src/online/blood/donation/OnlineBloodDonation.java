@@ -31,7 +31,7 @@ public class OnlineBloodDonation {
         int userChoice = 1;
 
         while (userChoice != 0) {
-            clearConsole();
+            clearConsole(); 
 
             System.out.println("=============================");
             System.out.println("||  ONLINE BLOOD DONATION  ||");
@@ -79,7 +79,7 @@ public class OnlineBloodDonation {
                                     break;
                                 case 3:
                                     //Wan Jun
-                                    appointmentHistory();
+                                    appointmentNotification();
                                     break;
                                 case 4:
                                     //Wan Jun
@@ -198,7 +198,7 @@ public class OnlineBloodDonation {
 
         System.out.println("1. Register Appointment");
         System.out.println("2. Cancel Appointment");
-        System.out.println("3. Appointment History");
+        System.out.println("3. Appointment Notification");
         System.out.println("4. View Profile");
         System.out.println("5. Editing Profile");
         System.out.println("6. Change Password");
@@ -763,27 +763,34 @@ public class OnlineBloodDonation {
         }
     }
     
-    private static void appointmentHistory(){
-        LocalDate today=LocalDate.now();
-        
-              
-       System.out.println("Your Blood Donation History");
-       System.out.println(today);
-       System.out.println("Today     :: " + today);
-       System.out.println("Next date :: " + findNextDay(today));
-       System.out.println("Prev date :: " + findPrevDay(today));
-       scan.nextLine();
+    private static void appointmentNotification(){
+        LocalDate today=LocalDate.now();   
+        int check=0;
+        if (registeredUsers.size()!=0){
+           for (int i=0;i<registeredUsers.size();i++){
+               RegisteredDonor users= registeredUsers.get(i);
+               if (users.checkName()==currentUser.getName()){
+                   System.out.println("Your Upcoming Blood Donation:");
+                   System.out.println(users.cancelToString());
+                   System.out.println("Date To Attend:" +findNextDay(today));
+                   System.out.println("\n REMINDER HERE !!!");
+                   System.out.println("Your appointment is tomorrow please prepare the required document before attend.");
+                   scan.nextLine();
+                   check=1;
+           }
+               if (check==0){
+                   System.out.println("No appointment assigned...");
+                   scan.nextLine();
+               }
+           }
+        }
     }
     
     private static LocalDate findNextDay(LocalDate localdate)
   {
-    return localdate.plusDays(2);
+    return localdate.plusDays(1);
   }
-      
-  private static LocalDate findPrevDay(LocalDate localdate)
-  {
-    return localdate.minusDays(1);
-  }
+       
     /////////////END OF WAN JUN/////////////////////////////////////////
 
 }
