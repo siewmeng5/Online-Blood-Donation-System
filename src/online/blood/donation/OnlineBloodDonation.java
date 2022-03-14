@@ -777,7 +777,7 @@ public class OnlineBloodDonation {
                     scan.nextLine();
                     check = 1;
                 }
-                if (check == 0) {
+                if (check == 0 && i == (registeredUsers.size()-1)) {
                     System.out.println("No appointment assigned...");
                     scan.nextLine();
                 }
