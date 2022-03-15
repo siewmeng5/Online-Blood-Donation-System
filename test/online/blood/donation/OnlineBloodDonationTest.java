@@ -25,7 +25,11 @@ public class OnlineBloodDonationTest {
     private boolean testIsActive;
     private String testBloodType;
     
+    private String testNewPassword;
+    
     private User u1;
+    private Donation_Centre dc1;
+    private RegisteredDonor rd1;
     
     public OnlineBloodDonationTest() {
     }
@@ -40,11 +44,16 @@ public class OnlineBloodDonationTest {
         testIsActive = true;
         testBloodType = "O";
         
+        testNewPassword = "wanjun123";
+        
         a1 = new Admin(testUsername, testPassword, testName, testIC, testPhoneNo, testIsActive);
         
         u1 = new User(testUsername, testPassword, testName, testIC, testPhoneNo, testBloodType);
+        
+        dc1 = new Donation_Centre("Tengku Ali Blood Donation Centre", "Selangor", "Klang", 33786543);
     }
 
+    ////GAN SIEW MENG
     @Test
     public void testDeactivateAccount() {
         System.out.println("Admin account is deactivated");
@@ -52,16 +61,24 @@ public class OnlineBloodDonationTest {
         assertEquals(false, a1.isIsActive());
     }
     
+    
+    ////NG BOON SEONG
     @Test
-    public void testCompleteAppointment() {
-        System.out.println("Appointment is completed successfully");
-        assertEquals(true, u1.getDonationHistory() == null ? true : false);
+    public void testRegisterAppointment() {
+        System.out.println("Appointment is registered successfully");
+        rd1 = new RegisteredDonor();
+        rd1.setRegisteredUser(u1);
+        rd1.setSelectedCentre(dc1);
+        assertEquals(u1.getName(), rd1.checkName());
     }
     
+    
+    ////CHUA WAN JUN
     @Test
-    public void testAppointmentNotification() {
-        System.out.println("Notification is received by User");
-        assertEquals(testName, u1.getName());
+    public void testChangePassword() {
+        System.out.println("User's password is changed successfully.");
+        u1.setPassword(testNewPassword);
+        assertEquals(testNewPassword, u1.getPassword());
     }
     
 }
